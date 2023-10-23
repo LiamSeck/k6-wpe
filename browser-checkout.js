@@ -94,7 +94,7 @@ export default async function () {
     page.locator('input[name="billing_state"]').type('');
     page.locator('input[name="billing_postcode"]').type('E17 6AD');
     page.locator('input[name="billing_phone"]').type('07988111111');
-    page.locator('input[name="billing_email"]').type('liamseck@live.ie');
+    page.locator('input[name="billing_email"]').type('liamseck@email.com');
     page.screenshot({ path: 'screenshots/7_Shipping_Info.png' });
 
     // Click on the place order button
