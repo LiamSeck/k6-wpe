@@ -7,7 +7,7 @@ brew install k6
 ```
 
 
-### To execute the ```browser-check.js``` script run:
+### To execute the ```browser-checkout.js``` script run:
 
 ```
 K6_BROWSER_HEADLESS=false k6 run browser-checkout.js
