@@ -11,7 +11,7 @@ export const options = {
     executor: 'ramping-vus',
       startVUs: 0,
       stages: [
-        { duration: '30s', target: 55 }, // Ramp to 30 VUS in 30s
+        { duration: '30s', target: 55 }, // Ramp to 55 VUS in 30s
         { duration: '2m', target: 55 }, // Stay at 55 VUS for 2mins
         { duration: '30s', target: 60 }, // Ramp to 60 VUS in 30s
         { duration: '2m', target: 60 }, // Stay at 50 VUS for 2mins
@@ -37,8 +37,9 @@ export default function () {
     'status is 504': (r) => r.status === 504
   });
 
-//   console.log('200:' + status200,'504:' + status504);
+  console.log('200:' + status200,'504:' + status504);
 
 //   if (getCurrentStageIndex() === 1) {
 //     console.log('Running the second stage where the expected target is 20');}
+
 }
