@@ -13,7 +13,7 @@ export const options = {
       stages: [
         { duration: '30s', target: 55 }, // Ramp to 30 VUS in 30s
         { duration: '2m', target: 55 }, // Stay at 55 VUS for 2mins
-        { duration: '30s', target: 60 }, //Ramp to 60 VUS in 30s
+        { duration: '30s', target: 60 }, // Ramp to 60 VUS in 30s
         { duration: '2m', target: 60 }, // Stay at 50 VUS for 2mins
       ],
       gracefulRampDown: '30s',
