@@ -11,23 +11,28 @@ export const options = {
     executor: 'ramping-vus',
       startVUs: 0,
       stages: [
-        { duration: '30s', target: 55 },
-        { duration: '2m', target: 55 },
-        { duration: '30s', target: 60 },
-        { duration: '1m', target: 60 },
+        { duration: '30s', target: 55 }, // Ramp to 30 VUS in 30s
+        { duration: '2m', target: 55 }, // Stay at 55 VUS for 2mins
+        { duration: '30s', target: 60 }, //Ramp to 60 VUS in 30s
+        { duration: '2m', target: 60 }, // Stay at 50 VUS for 2mins
       ],
       gracefulRampDown: '30s',
 };
 
 export default function () {
+
+  // Send GET request to https://liamseprod.wpenginepowered.com/cart/
   const res = http.get("https://liamseprod.wpenginepowered.com/cart/");
 
+  // Log the requests response time in ms to the console
   console.log('Response time was ' + String(res.timings.duration) + ' ms');
 
+  // Check for 200 Response Codes
   const status200 = check(res, {
     'status is 200': (r) => r.status === 200
   });
 
+  // Check for 504 Response Codes
   const status504 = check(res, {
     'status is 504': (r) => r.status === 504
   });
