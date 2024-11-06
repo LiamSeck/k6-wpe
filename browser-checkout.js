@@ -1,4 +1,4 @@
-import { browser } from 'k6/experimental/browser';
+import { browser } from 'k6/browser';
 import { check } from 'k6';
 import { sleep } from 'k6';
 
@@ -8,20 +8,7 @@ export const options = {
     BrowserCheckOutScenario: {
         executor: 'constant-vus',
         vus: 1,
-        duration: "1m",
-
-// The following config has k6 ramping up from 1 to 10 VUs for 30 seconds,
-// then staying flat at 10 VUs for 30s, then ramping up from 10 to 35 VUs
-// over the next 1 minute before finally ramping down to 0 VUs for another
-// 30s.
-        // executor: 'ramping-vus',
-        // stages: [
-        //           { duration: '30s', target: 10 },
-        //           { duration: '30s', target: 10 },
-        //           { duration: '1m', target: 85 },
-        //           { duration: '1m', target: 85 },
-        //           { duration: '30s', target: 0 },
-        //         ],      
+        duration: "1m",   
             options: {
         browser: {
           type: 'chromium', 
@@ -33,13 +20,13 @@ export const options = {
 
 export default async function () {
     // Initiate a new browser
-    const page = browser.newPage();
+    const context = await browser.newContext();
+    const page = await context.newPage();
 
     // Go to homepage
     await page.goto('https://liamseprod.wpenginepowered.com/');
     //page.screenshot({ path: 'screenshots/1_homepage.png' });
     sleep(3);
-
 
     // Go to product page
     await page.goto('https://liamseprod.wpenginepowered.com/products/');
@@ -54,7 +41,7 @@ export default async function () {
 
     // Selection quantity (come back to this)      
     // const quantityOption = page.locator('//*[@id="quantity_65314b2530ec4"]');
-    // quantityOption.selectOption('1');
+    // quantityOption.selectOption('2');
 
     // Click Add to Basket on https://liamseprod.wpenginepowered.com/product/test-prod-one/
     const AddToBasket = page.locator('//*[@id="product-47"]/div[2]/form/button');
@@ -84,18 +71,24 @@ export default async function () {
     //page.screenshot({ path: 'screenshots/6_Checkout.png' });
 
     // Enter Shipping Information
-    page.locator('input[name="billing_first_name"]').type('Liam');
-    page.locator('input[name="billing_last_name"]').type('Seck');
-    // page.locator('input[name="billing_company"]').type('Kcesmail');
-    // page.locator('input[name="billing_country"]').type('GB');
-    page.locator('input[name="billing_address_1"]').type('TEST HOUSE, TEST PLACE');
-    page.locator('input[name="billing_address_2"]').type('');
-    page.locator('input[name="billing_city"]').type('TEST CITY');
+    page.locator('input[name="billing_first_name"]').type('FirstName');
+    sleep(.1);
+    page.locator('input[name="billing_last_name"]').type('LastName');
+    // sleep(.1);
+    // page.locator('input[name="billing_country"]').type('United Kingdom (UK)');
+    sleep(.1);
+    page.locator('input[name="billing_address_1"]').type('TEST-HOUSE, TEST-PLACE');
+    sleep(.1);
+    page.locator('input[name="billing_city"]').type('TEST-CITY');
+    sleep(.1);
     page.locator('input[name="billing_state"]').type('');
-    page.locator('input[name="billing_postcode"]').type('E17 6AD');
-    page.locator('input[name="billing_phone"]').type('07988111111');
-    page.locator('input[name="billing_email"]').type('liamseck@email.com');
-    page.screenshot({ path: 'screenshots/7_Shipping_Info.png' });
+    sleep(.1);
+    page.locator('input[name="billing_postcode"]').type('AA901XX');
+    sleep(.1);
+    page.locator('input[name="billing_phone"]').type('0000000000');
+    sleep(.1);
+    page.locator('input[name="billing_email"]').type('test@test.com');
+    //page.screenshot({ path: 'screenshots/7_Shipping_Info.png' });
 
     // Click on the place order button
     const placeOrderButton = page.locator('//*[@id="place_order"]');
