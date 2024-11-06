@@ -39,10 +39,6 @@ export default async function () {
     sleep(3);
     //page.screenshot({ path: 'screenshots/3_AllProducts.png' });
 
-    // Selection quantity (come back to this)      
-    // const quantityOption = page.locator('//*[@id="quantity_65314b2530ec4"]');
-    // quantityOption.selectOption('2');
-
     // Click Add to Basket on https://liamseprod.wpenginepowered.com/product/test-prod-one/
     const AddToBasket = page.locator('//*[@id="product-47"]/div[2]/form/button');
     await Promise.all([page.waitForNavigation(), AddToBasket.click()]);
@@ -91,11 +87,13 @@ export default async function () {
     //page.screenshot({ path: 'screenshots/7_Shipping_Info.png' });
 
     // Click on the place order button
+   
     const placeOrderButton = page.locator('//*[@id="place_order"]');
     await Promise.all([page.waitForNavigation(), placeOrderButton.click()]);
     //page.screenshot({ path: 'screenshots/8_Order_Placed.png'});
 
     // Sleep
+    
     sleep(3);
     // Close the browser
     page.close();
